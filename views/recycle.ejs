@@ -1,0 +1,71 @@
+<div id="wrap">
+    <div class="list">
+      <div class="group">
+        <h3>废纸篓</h3>
+        <ul>
+          <% posts.forEach(function(post,idx){ %>
+            <li>
+              <a href="javascript:;">
+                <label class="title"><%= post.post%></label>
+                <p class="desc"><%= post.post%></p>
+              </a>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+    <div class="panel">
+        <h2>文件夹</h2>
+        <ul class="panel-dir">
+          <li><a href="javascript:;" _href="/">我的文件夹</a></li>
+          <li><a href="javascript:;" _href="/recycle">废纸篓</a></li>
+        </ul>
+        <h2>设置</h2>
+        <ul class="panel-dir">
+          <li><a href="javascript:;" _href="/user">个人资料</a></li>
+          <li><a href="javascript:;" _href="/logout">退出</a></li>
+        </ul>        
+        <% if(username=="dachie"){%>
+        <h2>后台</h2>
+        <ul class="panel-dir">
+          <li><a href="javascript:;" _href="/dachie">管理</a></li>
+        </ul>
+        <%}%>
+    </div>
+</div>
+<div id="dialog" title="新建记事">
+  <form id="form_create" name="form_create" action="/create" method="POST">
+  <textarea id="textarea_add" name="post" placeholder="可以随便写点什么..."></textarea>
+  </form>
+</div>
+<script type="text/javascript">
+    $(function ($) {
+        $('.panel').panel({
+            contentWrap: $(".list")
+        });
+
+        $('#overlay-menu').on('click', function () {
+            $('.panel').panel('toggle', 'push', 'left');
+        });
+
+        $('#dialog').dialog({
+          width:'300px',
+          autoOpen:false,
+          closeBtn: true,
+          scrollMove: false,
+          buttons: {
+              '取消': function(){
+                  this.close();
+              },
+              '确定': function(){
+                  $("#form_create").submit();
+              }
+          }
+        });
+        
+        $("#add").bind("click",function(){
+          $('#dialog').dialog("open");
+        });
+      
+    }(Zepto));
+</script>

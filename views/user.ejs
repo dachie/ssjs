@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="css/dialog.css">
+<div class="wrap">
+	<div id="login">
+		<form action="" method="POST" id="form_login">
+		<p>账号：<label><%= user.name%></label></p>
+		<p>密码：<input type="password" name="password" value="<%= user.password%>"></p>
+		<p><% if (error){%><span><%= error%></span><%}%></p>
+		</form>
+	</div>
+</div>
+<script>
+	(function($){
+		var dialog_login = $.ui.dialog({
+			closeBtn: false,
+			title:"修改密码",
+	        buttons: {
+	        	'返回':function(){
+	        		location.href="/";
+	        	},
+	            '修改密码':function(){
+	                $("#form_login").submit();
+	            }
+	        },
+	        content: document.getElementById("login")
+	    });
+	    dialog_login.data('_wrap').addClass('login-dialog');
+	})(Zepto);
+</script>

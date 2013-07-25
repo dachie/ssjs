@@ -1,0 +1,26 @@
+CACHE MANIFEST
+
+# VERSION 0.1
+
+# 直接缓存的文件
+CACHE:
+#css
+css/gmu.css
+css/reset.css
+css/dialog.css
+css/style.css
+
+#js
+js/zepto.js
+js/gmu.js
+
+#images
+css/images/j_r.png
+css/images/icons-36-white.png
+
+# 需要在时间在线的文件
+NETWORK:
+*
+
+# 替代方案
+FALLBACK:

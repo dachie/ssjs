@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="css/dialog.css">
+<div class="wrap">
+	<div id="reg">
+		<form action="" method="POST" id="form_reg">
+			<p>账号：<input type="text" name="name" value=""></p>
+			<p>密码：<input type="password" name="password" value=""></p>
+			<p><a href="javascript:;" _href="/login">已有账号</a><% if (error){%><span><%= error%></span><%}%></p>
+		</form>
+	</div>
+</div>
+<script>
+	(function($){
+		var dialog_reg = $.ui.dialog({
+			closeBtn: false,
+			title:"&nbsp;",
+	        buttons: {
+	            '注册': function(){
+	                $("#form_reg").submit();
+	            }
+	        },
+	        content: document.getElementById("reg")
+	    });
+	    dialog_reg.data('_wrap').addClass('login-dialog');
+	})(Zepto);
+</script>

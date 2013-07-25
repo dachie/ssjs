@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="white">
+  <link rel="apple-touch-icon" href="css/images/favicon-114.png">
+  <link rel="apple-touch-startup-image" href="css/images/startup.jpg">
+  <link rel="apple-touch-startup-image" href="css/images/startup@2x.jpg">
+	<title>随手记事<%= title%></title>
+  <link rel='stylesheet' href="css/reset.css" />
+  <link rel='stylesheet' href="css/gmu.css" />
+  <link rel="stylesheet" href="css/style.css" />
+    <script src="js/zepto.js"></script>
+    <script src="js/gmu.js"></script>
+</head>
+<body>
+  <iframe src="/cache" style="width:0;height:0;position:absolute;"></iframe>
+  <header>
+    <div id="toolbar">
+      <a id="overlay-menu" href="javascript:;">文件夹</a>
+      <h2>随手记事</h2>
+      <span class="btn_1" id="add"></span>
+    </div>
+  </header>
+    <%- body %>
+    <script>
+      //$("#toolbar").toolbar({useFix:true});
+      $("#toolbar").toolbar().fix({top:0});
+      $('#add').button({label:'新增'});
+      $("a[_href]").bind("click",function(){
+        location.href=$(this).attr("_href");
+      });
+    </script>
+</body>
+</html>
