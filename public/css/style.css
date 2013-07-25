@@ -67,4 +67,4 @@
 .ui-dialog-btns .ui-btn-1{
   border-right: 1px solid #ddd;
 }
-#wrap{margin-top: 42px;}
+#wrap{margin-top: 42px;min-height: 500px;}
