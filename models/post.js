@@ -37,7 +37,6 @@ Post.prototype.save = function save(callback) {
             collection.insert(post, {safe: true}, function (err, post) {
                 post = post[0];
                 mongodb.close();
-                console.log(post.user+"发布了一条新记事："+post.post+"，于"+post.time);
                 callback(err, post);
             });
         });

@@ -27,7 +27,7 @@ User.prototype.save = function save(callback) {
                 safe: true
             }, function(err, user) {
                 mongodb.close();
-                console.log("新用户注册："+user);
+                console.log("新用户注册："+user.name);
                 callback(err, user);
             });
         });
@@ -59,7 +59,6 @@ User.prototype.update = function update(callback) {
                 safe: true
             }, function(err, newPassword) {
                 mongodb.close();
-                console.log(user.name+"的新密码："+newPassword);
                 callback(err, newPassword);
             });
         });

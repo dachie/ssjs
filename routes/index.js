@@ -1,11 +1,11 @@
 var Post = require('../models/post.js');
 var User = require('../models/user.js');
 
-exports.notfound=function(req,res){
-    res.statusCode = 404;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('未登录，正在跳转至登陆页...');
-    res.redirect("/login");
+exports.notfound = function(req, res) {
+  res.statusCode = 404;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('未登录，正在跳转至登陆页...');
+  res.redirect("/login");
 };
 
 exports.index = function(req, res) {
@@ -112,41 +112,49 @@ exports.reg = function(req, res) {
   });
 };
 exports.doReg = function(req, res) {
-
-  var newUser = new User({
-    name: req.body.name,
-    password: req.body.password
-  });
-  User.get(newUser.name, function(err, user) {
-    if (user) {
-      err = '用户名已存在';
-    }
-    if (err) {
-      req.flash('error', err);
-      return res.redirect('/reg');
-    }
-
-    newUser.save(function(err) {
+  if (req.body.name == "" || req.body.password == "") {
+    err = "用户名或密码不能为空";
+    req.flash('error', err);
+    return res.redirect('/reg');
+  } else {
+    var newUser = new User({
+      name: req.body.name,
+      password: req.body.password
+    });
+    User.get(newUser.name, function(err, user) {
+      if (user) {
+        err = '用户名已存在';
+      }
       if (err) {
         req.flash('error', err);
         return res.redirect('/reg');
       }
-      req.session.user = newUser;
-      req.flash('success', '注册成功');
-      res.redirect('/');
+
+      newUser.save(function(err) {
+        if (err) {
+          req.flash('error', err);
+          return res.redirect('/reg');
+        }
+        req.session.user = newUser;
+        req.flash('success', '注册成功');
+        res.redirect('/');
+      });
     });
-  });
+  }
 };
 exports.create = function(req, res) {
-  var post = new Post(req.session.user.name, req.body["post"], new Date(), 1);
-  post.save(function(err, post) {
-    if (err) {
-      req.flash("error", err);
-      res.redirect("/error");
-    }
-    res.redirect("/");
-  });
-
+  if (req.body.post == "") {
+    return res.redirect("/");
+  } else {
+    var post = new Post(req.session.user.name, req.body["post"], new Date(), 1);
+    post.save(function(err, post) {
+      if (err) {
+        req.flash("error", err);
+        return res.redirect("/");
+      }
+      return res.redirect("/");
+    });
+  }
 };
 
 exports.error = function(req, res) {
@@ -195,8 +203,8 @@ exports.logout = function(req, res) {
   res.redirect("/login");
 };
 
-exports.cache =function(req,res){
-  res.render("cache",{
-    layout:false
+exports.cache = function(req, res) {
+  res.render("cache", {
+    layout: false
   });
 };
